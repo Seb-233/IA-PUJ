@@ -1,4 +1,4 @@
-from lectura import leer_matriz, matriz_grafo, encontrar_entrada
+from lectura import leer_matriz, matriz_grafo, encontrar_entrada, encontrar_salida
 from busquedas import dfs, bfs, a_star
 from hueristica import calculo_heuristica
 import functools
@@ -6,31 +6,44 @@ import functools
 # 1. Leer el laberinto
 matriz = leer_matriz('laberinto.txt')
 
-# 2. Convertir a grafo
-grafo = {}
-nodos = {}
+# 2. Encontrar entrada y salida
+entrada = encontrar_entrada(matriz)
+salida  = encontrar_salida(matriz)
+
+# 3. Convertir a grafo con pesos
+grafo     = {}
+nodos     = {}
 nodos_inv = {}
-entrada=encontrar_entrada(matriz)
 grafo, nodos, nodos_inv, cont = matriz_grafo(grafo, nodos, nodos_inv, entrada, matriz, 0)
 
-def encontrar_salida(matriz):
-    for i, fila in enumerate(matriz):
-        for j, val in enumerate(fila):
-            if val == 3:
-                return (i, j)
-salida = encontrar_salida(matriz)
-# 3. Encontrar inicio y meta
-inicio = nodos_inv[entrada]      # coordenada donde está el 2
-meta = nodos_inv[salida]        # coordenada donde está el 3
+# 4. Construir matriz de adyacencia con pesos (0 = sin conexion)
+num_nodos = len(nodos)
+matriz_adyacencia = [[0] * num_nodos for _ in range(num_nodos)]
 
-# 4. Correr los algoritmos
-camino_dfs = dfs(grafo, inicio, meta)
-camino_bfs = bfs(grafo, inicio, meta)
+for nodo, vecinos in grafo.items():
+    for vecino, peso in vecinos:
+        matriz_adyacencia[nodo][vecino] = peso
+        matriz_adyacencia[vecino][nodo] = peso
 
-heuristica = functools.partial(calculo_heuristica, nodos=nodos)
-camino_astar = a_star(grafo, inicio, meta, heuristica)
+# 5. Imprimir matriz de adyacencia con encabezados para facilitar la lectura
+print("\nMatriz de adyacencia (pesos = pasos entre nodos):")
+print("     " + "  ".join(f"{i:2}" for i in range(num_nodos)))
+print("     " + "----" * num_nodos)
+for i, fila in enumerate(matriz_adyacencia):
+    print(f"{i:2} |  " + "  ".join(f"{v:2}" for v in fila))
 
-# 5. Imprimir resultados
+# 6. Encontrar inicio y meta usando las coordenadas de entrada y salida
+inicio = nodos_inv[entrada]  # coordenada donde está el 2
+meta   = nodos_inv[salida]   # coordenada donde está el 3
+
+# 7. Correr los algoritmos usando la matriz de adyacencia
+camino_dfs   = dfs(matriz_adyacencia, inicio, meta)
+camino_bfs   = bfs(matriz_adyacencia, inicio, meta)
+
+heuristica   = functools.partial(calculo_heuristica, nodos=nodos)
+camino_astar = a_star(matriz_adyacencia, inicio, meta, heuristica)
+
+# 8. Imprimir resultados
 print("\n--- DFS ---")
 print([nodos[n] for n in camino_dfs])
 
