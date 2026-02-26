@@ -89,18 +89,22 @@ def matriz_grafo(grafo, nodos, nodos_inv, coord, matriz, cont):
 
     return grafo, nodos, nodos_inv, cont
 
-
+def encontrar_entrada(matriz):
+    for i, fila in enumerate(matriz):
+        for j, val in enumerate(fila):
+            if val == 2:
+                return (i, j)
 #leemos el archivo del laberinto
 matriz = leer_matriz('laberinto.txt')
 grafo = {}
 nodos = {}
 nodos_inv = {}
-
+entrada = encontrar_entrada(matriz)
 
 cont = 0
 
 #convertimos la matriz a grafo
-grafo, nodos, nodos_inv, cont = matriz_grafo(grafo, nodos, nodos_inv, (0,0), matriz, cont)
+grafo, nodos, nodos_inv, cont = matriz_grafo(grafo, nodos, nodos_inv, entrada, matriz, cont)
 
 print(f"Nodos: {nodos}")
 print(f"Grafo: {grafo}")
