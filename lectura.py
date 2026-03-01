@@ -101,7 +101,7 @@ def encontrar_entrada(matriz):
         for j, val in enumerate(fila):
             if val == 2:
                 return (i, j)
-    raise ValueError("No se encontró una entrada (valor 2) en el laberinto")
+
 
 
 #funcion para encontrar la salida del laberinto
@@ -113,4 +113,44 @@ def encontrar_salida(matriz):
         for j, val in enumerate(fila):
             if val == 3:
                 return (i, j)
-    raise ValueError("No se encontró una salida (valor 3) en el laberinto")
+
+# funcion para reconstruir la ruta completa desde el camino compacto de nodos de decision
+# recibe el camino compacto como lista de ids de nodos de decision,
+# el diccionario nodos (id -> coordenada) y la matriz del laberinto
+# la funcion recorre cada par de nodos consecutivos del camino compacto
+# y usa BFS para encontrar todas las celdas intermedias del corredor entre ellos
+# de esta forma expande el camino de nodos de decision a todos los pasos celda por celda
+# evita duplicar el nodo de union entre tramos consecutivos
+# devuelve la ruta completa como lista de coordenadas (fila, columna) desde la entrada hasta la salida
+def reconstruir_ruta(camino_compacto, nodos, matriz):
+    ruta_completa = []
+
+    for i in range(len(camino_compacto) - 1):
+        coord_actual = nodos[camino_compacto[i]]
+        coord_siguiente = nodos[camino_compacto[i + 1]]
+
+        # usamos BFS para encontrar el camino entre los dos nodos de decision
+        cola = [(coord_actual, [coord_actual])]
+        visitados = {coord_actual}
+
+        tramo = None
+        while cola:
+            (fil, col), camino_tramo = cola.pop(0)
+
+            if (fil, col) == coord_siguiente:
+                tramo = camino_tramo
+                break
+
+            for nf, nc in get_dirs_validas(matriz, fil, col):
+                if (nf, nc) not in visitados:
+                    visitados.add((nf, nc))
+                    cola.append(((nf, nc), camino_tramo + [(nf, nc)]))
+
+        if tramo:
+            # evitamos duplicar el nodo de union entre tramos
+            if ruta_completa and ruta_completa[-1] == tramo[0]:
+                ruta_completa.extend(tramo[1:])
+            else:
+                ruta_completa.extend(tramo)
+
+    return ruta_completa

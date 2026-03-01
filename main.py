@@ -1,5 +1,5 @@
-from lectura import leer_matriz, matriz_grafo, encontrar_entrada, encontrar_salida
-from busquedas import dfs, bfs, a_star
+from lectura import leer_matriz, matriz_grafo, encontrar_entrada, encontrar_salida , reconstruir_ruta
+from busquedas import dfs, bfs, a_star_con_conteo 
 from hueristica import calculo_heuristica
 import functools
 
@@ -37,18 +37,27 @@ inicio = nodos_inv[entrada]  # coordenada donde está el 2
 meta   = nodos_inv[salida]   # coordenada donde está el 3
 
 # 7. Correr los algoritmos usando la matriz de adyacencia
-camino_dfs   = dfs(matriz_adyacencia, inicio, meta)
-camino_bfs   = bfs(matriz_adyacencia, inicio, meta)
+camino_dfs = dfs(matriz_adyacencia, inicio, meta)
+camino_bfs = bfs(matriz_adyacencia, inicio, meta)
+heuristica = functools.partial(calculo_heuristica, nodos=nodos)
+camino_astar, nodos_exp = a_star_con_conteo(matriz_adyacencia, inicio, meta, heuristica)
 
-heuristica   = functools.partial(calculo_heuristica, nodos=nodos)
-camino_astar = a_star(matriz_adyacencia, inicio, meta, heuristica)
+# 5. reconstruir ruta completa de A*
+ruta_completa = reconstruir_ruta(camino_astar, nodos, matriz)
 
-# 8. Imprimir resultados
-print("\n--- DFS ---")
+# 6. imprimir resultados
+print("\n--- DFS (nodos de decision) ---")
 print([nodos[n] for n in camino_dfs])
 
-print("\n--- BFS ---")
+print("\n--- BFS (nodos de decision) ---")
 print([nodos[n] for n in camino_bfs])
 
-print("\n--- A* ---")
+print("\n--- A* (nodos de decision) ---")
 print([nodos[n] for n in camino_astar])
+
+print("\n--- A* ruta completa celda por celda ---")
+print(ruta_completa)
+
+print("\n--- Comparativa de rendimiento ---")
+print(f"Nodos expandidos por A* macro: {nodos_exp}")
+print(f"Total de nodos en el grafo:    {num_nodos}")
