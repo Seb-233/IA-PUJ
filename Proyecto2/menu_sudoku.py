@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 
+from backtracking_basico import solve_sudoku_bt
 from fuerza_bruta import solve_sudoku_fb
 from lectura_sudoku import imprimir_tablero, leer_tablero, validar_tablero
 
@@ -46,8 +47,9 @@ def menu_solucion() -> None:
 
         print("\nSeleccione la solución que prefiera:")
         print("1. Fuerza bruta")
-        print("2. Cargar otro tablero")
-        print("3. Salir")
+        print("2. Backtracking basico")
+        print("3. Cargar otro tablero")
+        print("4. Salir")
 
         opcion = input("Opción: ").strip()
 
@@ -60,8 +62,16 @@ def menu_solucion() -> None:
             else:
                 print("Sin solución.")
         elif opcion == "2":
-            tablero_original = cargar_tablero()
+            tablero = deepcopy(tablero_original)
+            print("\nResolviendo con backtracking basico...\n")
+            if solve_sudoku_bt(tablero, len(tablero)):
+                print("SOLUCION:")
+                imprimir_tablero(tablero)
+            else:
+                print("Sin solucion.")
         elif opcion == "3":
+            tablero_original = cargar_tablero()
+        elif opcion == "4":
             print("Programa finalizado.")
             break
         else:
