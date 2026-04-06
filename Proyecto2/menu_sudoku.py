@@ -22,7 +22,7 @@ def cargar_tablero() -> list[list[int]]:
         opcion = input("Opción: ").strip()
 
         if opcion == "1":
-            tablero = leer_tablero("sudoku_prueba.txt")
+            tablero = leer_tablero("Proyecto2/sudoku_prueba.txt")
         elif opcion == "2":
             ruta = input("Ruta del archivo: ").strip()
             tablero = leer_tablero(ruta)

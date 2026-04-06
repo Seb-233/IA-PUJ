@@ -52,7 +52,7 @@ def solve_sudoku_bt(tablero: list[list[int]], n: int = 9) -> bool:
 
 if __name__ == "__main__":
     # Bloque de prueba rapida para ejecutar este modulo por separado.
-    tablero = leer_tablero("sudoku_prueba.txt")
+    tablero = leer_tablero("Proyecto2/sudoku_prueba.txt")
     print("Antes:")
     imprimir_tablero(tablero)
 
