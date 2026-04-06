@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import ast
 import math
-from pathlib import Path
+import sys
 
 
 def _tamano_subcuadro(n: int) -> int:
+    """Retorna el tamaño del subcuadro y valida que n sea un cuadrado perfecto."""
     raiz = math.isqrt(n)
     if raiz * raiz != n:
         raise ValueError(f"El tamaño {n} no permite subcuadros cuadrados.")
@@ -15,6 +16,7 @@ def _tamano_subcuadro(n: int) -> int:
 
 
 def _es_matriz(tablero: object, n: int) -> bool:
+    """Verifica si el objeto tiene forma de matriz n x n con filas de tipo lista."""
     return (
         isinstance(tablero, list)
         and len(tablero) == n
@@ -28,6 +30,8 @@ def leer_tablero(ruta: str, n: int = 9) -> list[list[int]]:
 
     Cada línea del archivo debe representar una fila como una lista de Python,
     por ejemplo: [5, 3, 0, 0, 7, 0, 0, 0, 0]
+
+    Lanza ValueError si el archivo no representa un tablero válido.
     """
     _tamano_subcuadro(n)
 
@@ -45,6 +49,7 @@ def leer_tablero(ruta: str, n: int = 9) -> list[list[int]]:
 
 
 def validar_fila(tablero: list[list[int]], fila: int, num: int, n: int) -> bool:
+    """Retorna True si num no aparece en la fila indicada del tablero."""
     for col in range(n):
         if tablero[fila][col] == num:
             return False
@@ -52,6 +57,7 @@ def validar_fila(tablero: list[list[int]], fila: int, num: int, n: int) -> bool:
 
 
 def validar_columna(tablero: list[list[int]], col: int, num: int, n: int) -> bool:
+    """Retorna True si num no aparece en la columna indicada del tablero."""
     for fila in range(n):
         if tablero[fila][col] == num:
             return False
@@ -59,6 +65,7 @@ def validar_columna(tablero: list[list[int]], col: int, num: int, n: int) -> boo
 
 
 def validar_cuadro(tablero: list[list[int]], fila: int, col: int, num: int, n: int) -> bool:
+    """Retorna True si num no aparece en el subcuadro al que pertenece la celda (fila, col)."""
     tam = _tamano_subcuadro(n)
     inicio_fila = (fila // tam) * tam
     inicio_col = (col // tam) * tam
@@ -71,6 +78,13 @@ def validar_cuadro(tablero: list[list[int]], fila: int, col: int, num: int, n: i
 
 
 def es_posicion_valida(tablero: list[list[int]], fila: int, col: int, num: int, n: int) -> bool:
+    """
+    Retorna True si num puede colocarse en la celda (fila, col) sin violar
+    las reglas del Sudoku (fila, columna y subcuadro).
+
+    Retorna False si la celda ya está ocupada, num está fuera de rango o
+    las coordenadas son inválidas.
+    """
     if not (0 <= fila < n and 0 <= col < n):
         return False
     if not (1 <= num <= n):
@@ -86,6 +100,13 @@ def es_posicion_valida(tablero: list[list[int]], fila: int, col: int, num: int, 
 
 
 def validar_tablero(tablero: list[list[int]], n: int) -> bool:
+    """
+    Verifica que el tablero sea una matriz n x n con valores entre 0 y n,
+    sin repeticiones en filas, columnas ni subcuadros.
+
+    El valor 0 representa una celda vacía y no cuenta como repetición.
+    Retorna False ante cualquier inconsistencia.
+    """
     _tamano_subcuadro(n)
 
     if not _es_matriz(tablero, n):
@@ -133,6 +154,11 @@ def validar_tablero(tablero: list[list[int]], n: int) -> bool:
 
 
 def imprimir_tablero(tablero: list[list[int]]) -> None:
+    """
+    Imprime el tablero en consola con separadores visuales entre subcuadros.
+
+    Las celdas vacías (valor 0) se muestran como punto (.).
+    """
     n = len(tablero)
     tam = _tamano_subcuadro(n)
     ancho = len(str(n))
@@ -153,7 +179,10 @@ def imprimir_tablero(tablero: list[list[int]]) -> None:
 
 
 if __name__ == "__main__":
-    ruta_prueba = "Proyecto2/sudoku_prueba.txt"
+    if len(sys.argv) < 2:
+        print("Uso: python lectura_sudoku.py <ruta_archivo>")
+        sys.exit(1)
+    ruta_prueba = sys.argv[1]
     tablero = leer_tablero(ruta_prueba)
     print(f"Prueba desde archivo: {ruta_prueba}")
     print("Tablero válido:", validar_tablero(tablero, 9))

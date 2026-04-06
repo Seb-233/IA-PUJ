@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import typing
-from lectura_sudoku import es_posicion_valida, imprimir_tablero, leer_tablero, validar_tablero
+from lectura_sudoku import es_posicion_valida, imprimir_tablero, leer_tablero, validar_tablero, _tamano_subcuadro
 
 def buscar_celda_vacia(tablero: list[list[int]], n: int) -> tuple[int, int] | None:
     """Busca la siguiente celda vacía."""
@@ -27,7 +27,6 @@ def forward_checking_valido(tablero: list[list[int]], fila: int, col: int, n: in
     Verifica los vecinos de (fila, col) que están vacíos. 
     Si alguno se queda sin valores posibles en su dominio, retorna False.
     """
-    from lectura_sudoku import _tamano_subcuadro
     tam = _tamano_subcuadro(n)
     
     # Revisar vecinos en la misma fila y columna
