@@ -19,6 +19,7 @@ def buscar_celda_vacia(tablero: list[list[int]], n: int) -> tuple[int, int] | No
 
 def _indice_subcuadro(fila: int, col: int, tam_subcuadro: int) -> int:
     """Calcula a que subcuadro pertenece una celda."""
+    # Convierte la posicion de una celda en el indice lineal de su bloque.
     return (fila // tam_subcuadro) * tam_subcuadro + (col // tam_subcuadro)
 
 
@@ -36,9 +37,12 @@ def _construir_restricciones(
         for col in range(n):
             valor = tablero[fila][col]
             if valor == 0:
+                # Guardamos aparte las celdas pendientes de resolver.
                 vacias.append((fila, col))
                 continue
 
+            # Registramos los valores ya usados para consultar restricciones
+            # en tiempo constante durante la recursion.
             filas[fila].add(valor)
             columnas[col].add(valor)
             subcuadros[_indice_subcuadro(fila, col, tam_subcuadro)].add(valor)
@@ -57,6 +61,7 @@ def _resolver_desde(
     n: int,
 ) -> bool:
     """Explora recursivamente las asignaciones validas restantes."""
+    # Caso base recursivo: ya se asignaron todas las celdas vacias.
     if indice == len(vacias):
         return True
 
@@ -68,6 +73,7 @@ def _resolver_desde(
         if num in filas[fila] or num in columnas[col] or num in subcuadros[subcuadro]:
             continue
 
+        # Se asigna el candidato y se actualizan las restricciones activas.
         tablero[fila][col] = num
         filas[fila].add(num)
         columnas[col].add(num)
@@ -100,6 +106,7 @@ def solve_sudoku_bt(tablero: list[list[int]], n: int = 9) -> bool:
     if buscar_celda_vacia(tablero, n) is None:
         return True
 
+    # Prepara el estado inicial que compartira toda la recursion.
     filas, columnas, subcuadros, vacias, tam_subcuadro = _construir_restricciones(tablero, n)
     return _resolver_desde(tablero, vacias, 0, filas, columnas, subcuadros, tam_subcuadro, n)
 
