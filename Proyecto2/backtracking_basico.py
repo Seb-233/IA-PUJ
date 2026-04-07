@@ -9,7 +9,8 @@ from lectura_sudoku import imprimir_tablero, leer_tablero, validar_tablero
 
 def buscar_celda_vacia(tablero: list[list[int]], n: int) -> tuple[int, int] | None:
     """Retorna la primera celda vacia encontrada o None si el tablero esta completo."""
-    # Recorre el tablero en orden para ubicar la siguiente decision pendiente.
+    # Paso 1: recorre el tablero de izquierda a derecha y de arriba a abajo
+    # para encontrar la siguiente celda vacia.
     for fila in range(n):
         for col in range(n):
             if tablero[fila][col] == 0:
@@ -68,21 +69,26 @@ def _resolver_desde(
     fila, col = vacias[indice]
     subcuadro = _indice_subcuadro(fila, col, tam_subcuadro)
 
-    # Prueba candidatos consistentes con las restricciones acumuladas.
+    # Paso 2: toma numeros candidatos en orden, del 1 al n.
     for num in range(1, n + 1):
+        # Paso 3: revisa si el candidato entra en conflicto con la fila,
+        # la columna o el subcuadro.
         if num in filas[fila] or num in columnas[col] or num in subcuadros[subcuadro]:
             continue
 
-        # Se asigna el candidato y se actualizan las restricciones activas.
+        # Paso 4: si no hay conflicto, coloca temporalmente el numero en la
+        # celda y actualiza las restricciones activas.
         tablero[fila][col] = num
         filas[fila].add(num)
         columnas[col].add(num)
         subcuadros[subcuadro].add(num)
 
+        # Paso 5: intenta resolver recursivamente el resto del tablero.
         if _resolver_desde(tablero, vacias, indice + 1, filas, columnas, subcuadros, tam_subcuadro, n):
             return True
 
-        # Si la rama falla, retrocede y deja la celda vacia.
+        # Paso 6: si esa decision no lleva a solucion, deshace el cambio y
+        # prueba el siguiente candidato.
         tablero[fila][col] = 0
         filas[fila].remove(num)
         columnas[col].remove(num)
