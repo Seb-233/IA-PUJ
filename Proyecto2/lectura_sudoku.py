@@ -101,20 +101,20 @@ def es_posicion_valida(tablero: list[list[int]], fila: int, col: int, num: int, 
 
 def validar_tablero(tablero: list[list[int]], n: int) -> bool:
     """
-    Verifica que el tablero sea una matriz n x n con valores entre 0 y n,
+    Verifica que el tablero sea una matriz n x n con valores entre 0 y 9,
     sin repeticiones en filas, columnas ni subcuadros.
 
     El valor 0 representa una celda vacía y no cuenta como repetición.
     Retorna False ante cualquier inconsistencia.
     """
-    _tamano_subcuadro(n)
+    tam =_tamano_subcuadro(n)
 
     if not _es_matriz(tablero, n):
         return False
 
     for fila in tablero:
         for valor in fila:
-            if not isinstance(valor, int) or not (0 <= valor <= n):
+            if not isinstance(valor, int) or not (0 <= valor <= 9):
                 return False
 
     for fila in range(n):
@@ -137,7 +137,7 @@ def validar_tablero(tablero: list[list[int]], n: int) -> bool:
                 return False
             vistos.add(valor)
 
-    tam = _tamano_subcuadro(n)
+    
     for inicio_fila in range(0, n, tam):
         for inicio_col in range(0, n, tam):
             vistos = set()
