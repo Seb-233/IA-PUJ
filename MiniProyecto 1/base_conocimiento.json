@@ -1,0 +1,334 @@
+{
+  "reglas": [
+    {
+      "id": "R1",
+      "antecedentes": ["Fiebre", "Tos"],
+      "consecuente": "Sindrome_Respiratorio"
+    },
+    {
+      "id": "R2",
+      "antecedentes": ["Tos", "Dolor_Garganta"],
+      "consecuente": "Irritacion_Via_Aerea"
+    },
+    {
+      "id": "R3",
+      "antecedentes": ["Congestion_Nasal", "Rinorrea"],
+      "consecuente": "Sindrome_Nasal"
+    },
+    {
+      "id": "R4",
+      "antecedentes": ["Sindrome_Nasal", "Estornudos"],
+      "consecuente": "Rinitis_Aguda"
+    },
+    {
+      "id": "R5",
+      "antecedentes": ["Fiebre", "Dolor_Muscular"],
+      "consecuente": "Sindrome_Gripalgia"
+    },
+    {
+      "id": "R6",
+      "antecedentes": ["Sindrome_Respiratorio", "Sindrome_Gripalgia"],
+      "consecuente": "Infeccion_Respiratoria_Aguda"
+    },
+    {
+      "id": "R7",
+      "antecedentes": ["Infeccion_Respiratoria_Aguda", "Cefalea"],
+      "consecuente": "Cuadro_Viral_Probable"
+    },
+    {
+      "id": "R8",
+      "antecedentes": ["Cuadro_Viral_Probable", "Perdida_Olfato"],
+      "consecuente": "Sospecha_Covid"
+    },
+    {
+      "id": "R9",
+      "antecedentes": ["Sospecha_Covid", "Perdida_Gusto"],
+      "consecuente": "Covid_19"
+    },
+    {
+      "id": "R10",
+      "antecedentes": ["Infeccion_Respiratoria_Aguda", "Dolor_Muscular"],
+      "consecuente": "Influenza"
+    },
+    {
+      "id": "R11",
+      "antecedentes": ["Irritacion_Via_Aerea", "Fiebre_Baja"],
+      "consecuente": "Faringitis_Viral"
+    },
+    {
+      "id": "R12",
+      "antecedentes": ["Dolor_Garganta", "Placas_Amigdalas"],
+      "consecuente": "Faringitis_Bacteriana_Sospechada"
+    },
+    {
+      "id": "R13",
+      "antecedentes": ["Faringitis_Bacteriana_Sospechada", "Fiebre"],
+      "consecuente": "Amigdalitis_Bacteriana"
+    },
+    {
+      "id": "R14",
+      "antecedentes": ["Sindrome_Respiratorio", "Expectoracion"],
+      "consecuente": "Bronquitis_Sospechada"
+    },
+    {
+      "id": "R15",
+      "antecedentes": ["Bronquitis_Sospechada", "Sibilancias"],
+      "consecuente": "Bronquitis_Aguda"
+    },
+    {
+      "id": "R16",
+      "antecedentes": ["Sindrome_Respiratorio", "Dificultad_Respiratoria"],
+      "consecuente": "Compromiso_Respiratorio"
+    },
+    {
+      "id": "R17",
+      "antecedentes": ["Compromiso_Respiratorio", "Dolor_Toracico"],
+      "consecuente": "Neumonia_Sospechada"
+    },
+    {
+      "id": "R18",
+      "antecedentes": ["Neumonia_Sospechada", "Expectoracion_Purulenta"],
+      "consecuente": "Neumonia_Bacteriana"
+    },
+    {
+      "id": "R19",
+      "antecedentes": ["Neumonia_Sospechada", "Tos_Seca"],
+      "consecuente": "Neumonia_Atipica"
+    },
+    {
+      "id": "R20",
+      "antecedentes": ["Sibilancias", "Dificultad_Respiratoria"],
+      "consecuente": "Broncoespasmo"
+    },
+    {
+      "id": "R21",
+      "antecedentes": ["Broncoespasmo", "Antecedente_Asma"],
+      "consecuente": "Crisis_Asmatica"
+    },
+    {
+      "id": "R22",
+      "antecedentes": ["Dolor_Toracico", "Disnea_Esfuerzo"],
+      "consecuente": "Sindrome_Cardiopulmonar"
+    },
+    {
+      "id": "R23",
+      "antecedentes": ["Sindrome_Cardiopulmonar", "Palpitaciones"],
+      "consecuente": "Arritmia_Sospechada"
+    },
+    {
+      "id": "R24",
+      "antecedentes": ["Sindrome_Cardiopulmonar", "Sudoracion_Fria"],
+      "consecuente": "Evento_Coronario_Sospechado"
+    },
+    {
+      "id": "R25",
+      "antecedentes": ["Evento_Coronario_Sospechado", "Dolor_Brazo_Izquierdo"],
+      "consecuente": "Sindrome_Coronario_Agudo"
+    },
+    {
+      "id": "R26",
+      "antecedentes": ["Nauseas", "Vomito"],
+      "consecuente": "Sindrome_Gastrointestinal"
+    },
+    {
+      "id": "R27",
+      "antecedentes": ["Sindrome_Gastrointestinal", "Diarrea"],
+      "consecuente": "Gastroenteritis_Sospechada"
+    },
+    {
+      "id": "R28",
+      "antecedentes": ["Gastroenteritis_Sospechada", "Fiebre"],
+      "consecuente": "Gastroenteritis_Infecciosa"
+    },
+    {
+      "id": "R29",
+      "antecedentes": ["Vomito", "Dolor_Abdominal"],
+      "consecuente": "Abdomen_Agudo_Sospechado"
+    },
+    {
+      "id": "R30",
+      "antecedentes": ["Abdomen_Agudo_Sospechado", "Dolor_Fosa_Iliaca_Derecha"],
+      "consecuente": "Apendicitis_Sospechada"
+    },
+    {
+      "id": "R31",
+      "antecedentes": ["Apendicitis_Sospechada", "Fiebre"],
+      "consecuente": "Apendicitis_Aguda"
+    },
+    {
+      "id": "R32",
+      "antecedentes": ["Dolor_Abdominal", "Ictericia"],
+      "consecuente": "Compromiso_Hepatobiliar"
+    },
+    {
+      "id": "R33",
+      "antecedentes": ["Compromiso_Hepatobiliar", "Coluria"],
+      "consecuente": "Hepatitis_Sospechada"
+    },
+    {
+      "id": "R34",
+      "antecedentes": ["Hepatitis_Sospechada", "Fatiga"],
+      "consecuente": "Hepatitis_Aguda"
+    },
+    {
+      "id": "R35",
+      "antecedentes": ["Disuria", "Urgencia_Urinaria"],
+      "consecuente": "Sindrome_Urinario_Bajo"
+    },
+    {
+      "id": "R36",
+      "antecedentes": ["Sindrome_Urinario_Bajo", "Fiebre"],
+      "consecuente": "Infeccion_Urinaria_Sospechada"
+    },
+    {
+      "id": "R37",
+      "antecedentes": ["Infeccion_Urinaria_Sospechada", "Dolor_Lumbar"],
+      "consecuente": "Pielonefritis_Sospechada"
+    },
+    {
+      "id": "R38",
+      "antecedentes": ["Pielonefritis_Sospechada", "Escalofrios"],
+      "consecuente": "Pielonefritis_Aguda"
+    },
+    {
+      "id": "R39",
+      "antecedentes": ["Sindrome_Urinario_Bajo", "Hematuria"],
+      "consecuente": "Cistitis_Hemorragica_Sospechada"
+    },
+    {
+      "id": "R40",
+      "antecedentes": ["Cefalea", "Fotofobia"],
+      "consecuente": "Sindrome_Meningeo_Parcial"
+    },
+    {
+      "id": "R41",
+      "antecedentes": ["Sindrome_Meningeo_Parcial", "Rigidez_Nuca"],
+      "consecuente": "Meningitis_Sospechada"
+    },
+    {
+      "id": "R42",
+      "antecedentes": ["Meningitis_Sospechada", "Fiebre"],
+      "consecuente": "Meningitis_Aguda"
+    },
+    {
+      "id": "R43",
+      "antecedentes": ["Confusion", "Fiebre"],
+      "consecuente": "Sindrome_Neurologico_Infeccioso"
+    },
+    {
+      "id": "R44",
+      "antecedentes": ["Sindrome_Neurologico_Infeccioso", "Rigidez_Nuca"],
+      "consecuente": "Encefalitis_Sospechada"
+    },
+    {
+      "id": "R45",
+      "antecedentes": ["Debilidad_Unilateral", "Dificultad_Hablar"],
+      "consecuente": "Deficit_Neurologico_Focal"
+    },
+    {
+      "id": "R46",
+      "antecedentes": ["Deficit_Neurologico_Focal", "Inicio_Subito"],
+      "consecuente": "Accidente_Cerebrovascular_Sospechado"
+    },
+    {
+      "id": "R47",
+      "antecedentes": ["Prurito_Ocular", "Lagrimeo"],
+      "consecuente": "Sindrome_Ocular_Alergico"
+    },
+    {
+      "id": "R48",
+      "antecedentes": ["Sindrome_Ocular_Alergico", "Estornudos"],
+      "consecuente": "Rinoconjuntivitis_Alergica"
+    },
+    {
+      "id": "R49",
+      "antecedentes": ["Dolor_Oido", "Fiebre"],
+      "consecuente": "Otitis_Sospechada"
+    },
+    {
+      "id": "R50",
+      "antecedentes": ["Otitis_Sospechada", "Hipoacusia"],
+      "consecuente": "Otitis_Media_Aguda"
+    },
+    {
+      "id": "R51",
+      "antecedentes": ["Otitis_Sospechada", "Secrecion_Oido"],
+      "consecuente": "Otitis_Externa_Infecciosa"
+    },
+    {
+      "id": "R52",
+      "antecedentes": ["Lesion_Cutanea", "Enrojecimiento_Piel"],
+      "consecuente": "Inflamacion_Cutanea"
+    },
+    {
+      "id": "R53",
+      "antecedentes": ["Inflamacion_Cutanea", "Calor_Local"],
+      "consecuente": "Celulitis_Sospechada"
+    },
+    {
+      "id": "R54",
+      "antecedentes": ["Celulitis_Sospechada", "Fiebre"],
+      "consecuente": "Celulitis_Infecciosa"
+    },
+    {
+      "id": "R55",
+      "antecedentes": ["Erupcion_Cutanea", "Prurito"],
+      "consecuente": "Dermatitis_Sospechada"
+    },
+    {
+      "id": "R56",
+      "antecedentes": ["Dermatitis_Sospechada", "Contacto_Alergeno"],
+      "consecuente": "Dermatitis_Alergica"
+    },
+    {
+      "id": "R57",
+      "antecedentes": ["Poliuria", "Sed_Excesiva"],
+      "consecuente": "Sindrome_Hiperglucemico"
+    },
+    {
+      "id": "R58",
+      "antecedentes": ["Sindrome_Hiperglucemico", "Perdida_Peso"],
+      "consecuente": "Diabetes_Mellitus_Sospechada"
+    },
+    {
+      "id": "R59",
+      "antecedentes": ["Fatiga", "Palidez"],
+      "consecuente": "Sindrome_Anemico"
+    },
+    {
+      "id": "R60",
+      "antecedentes": ["Sindrome_Anemico", "Disnea_Esfuerzo"],
+      "consecuente": "Anemia_Clinica_Sospechada"
+    },
+    {
+      "id": "R61",
+      "antecedentes": ["Rinitis_Aguda", "Fiebre_Baja"],
+      "consecuente": "Cuadro_Infeccioso_Leve"
+    },
+    {
+      "id": "R62",
+      "antecedentes": ["Rinoconjuntivitis_Alergica", "Dermatitis_Alergica"],
+      "consecuente": "Proceso_Alergico"
+    },
+    {
+      "id": "R63",
+      "antecedentes": ["Accidente_Cerebrovascular_Sospechado", "Confusion"],
+      "consecuente": "Compromiso_Neurologico"
+    },
+    {
+      "id": "R64",
+      "antecedentes": ["Diabetes_Mellitus_Sospechada", "Fatiga"],
+      "consecuente": "Manifestacion_Sistemica"
+    },
+    {
+      "id": "R65",
+      "antecedentes": ["Fiebre", "Escalofrios"],
+      "consecuente": "Cuadro_Infeccioso"
+    },
+    {
+      "id": "R66",
+      "antecedentes": ["Manifestacion_Sistemica", "Cuadro_Infeccioso"],
+      "consecuente": "Sospecha_Clinica_General"
+    }
+  ]
+}
